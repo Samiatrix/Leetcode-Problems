@@ -1,0 +1,27 @@
+class Solution {
+public:
+    bool isPalindrome(int x) {
+        if(x<0){
+            return false;
+        }
+        else{
+            bool ans=true;
+            vector<int> vecx;
+            int n=x;
+            while(n!=0){
+                int r=n%10;
+                vecx.push_back(r);
+                n=n/10;
+            }
+            int len=vecx.size();  
+            int mid=len/2;
+                for(int i=0,j=len-1;i<j;i++,j--){
+                    if(vecx[i]!=vecx[j]){
+                        ans=false;
+                    }
+                }
+            return ans;
+            
+        }
+    }
+};
