@@ -1,0 +1,15 @@
+class Solution {
+public:
+    vector<int> smallerNumbersThanCurrent(vector<int>& nums) {
+        int l=nums.size();
+        vector<int> ans(l,0);
+        for(int i=0;i<l;i++){
+            for(int j=0;j<l;j++){
+                if(nums[i]>nums[j]){
+                    ans[i]++;
+                }
+            }
+        }
+        return ans;
+    }
+};
