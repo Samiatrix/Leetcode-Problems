@@ -1,0 +1,39 @@
+class Solution {
+public:
+    vector<vector<int>> generateMatrix(int n) {
+        int count=1;
+        vector<vector<int>> matrix;
+        for(int i=0;i<n;i++){
+            vector<int> temp;
+            for(int j=0;j<n;j++){
+                temp.push_back(0);
+            }
+            matrix.push_back(temp);
+        }
+        int lr=0, rl=matrix[0].size(), tb = 0, bt = matrix.size();
+        for(int k = 0 ; count <= n*n ; k++){
+            if(k % 4 == 0){
+                for(int i = lr ; i<rl; i++){
+                    matrix[tb][i]=count++;
+                }
+            }
+            if(k % 4 == 1){
+                for(int i = tb+1 ; i<bt; i++){
+                    matrix[i][rl-1]=count++;;
+                }
+            }
+            if(k % 4 == 2){
+                for(int i = rl-2 ; i>=lr; i--){
+                matrix[bt-1][i]=count++;;
+                }
+            }
+            if(k % 4 == 3){
+                for(int i = bt-2 ; i>tb; i--){
+                    matrix[i][tb]=count++;;
+                }
+                lr++;   rl--;   tb++;   bt--;
+            }
+        }
+        return matrix;
+    }
+};
