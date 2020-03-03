@@ -1,0 +1,89 @@
+class Solution {
+public:
+    int date(int year, int month, int days){
+        int nodays=0,count=0;
+        for(int i=1900;i<year;i++){
+            if (((i % 4 == 0) && (i % 100 != 0)) || (i % 400 == 0)){
+                nodays+=366;
+            }
+            else{
+                nodays+=365;
+            }
+        }
+        for(int i=1;i<month;i++){
+            if( i == 2)
+            {
+                if((year%400==0) || (year%4==0 && year%100!=0))	
+                    nodays+= 29;
+                else	
+                    nodays+= 28;
+            }
+            else if(i == 1 || i == 3 || i == 5 || i == 7 || i == 8 || i == 10 || i==12)	
+                nodays+= 31;
+            else 		
+                nodays+= 30;
+        }
+        
+        nodays+=days;
+        
+        return nodays;
+    }
+    int daysBetweenDates(string date1, string date2) {
+        string year11="";
+        string month11="";
+        string day11="";
+        for(int i=0;date1[i]!='\0';i++){
+            if(i<4){
+                year11+=date1[i];
+            }
+            if(i>4 && i<7){
+                month11+=date1[i];
+            }
+            if(i>7){
+                day11+=date1[i];
+            }
+        }
+        stringstream y(year11); 
+        int year1 = 0; 
+        y >> year1;
+        
+        stringstream m(month11); 
+        int month1 = 0; 
+        m >> month1; 
+        
+        stringstream d(day11); 
+        int day1 = 0; 
+        d >> day1; 
+        int datee1=date(year1, month1, day1);
+        
+        string year22="";
+        string month22="";
+        string day22="";
+        for(int i=0;date2[i]!='\0';i++){
+            if(i<4){
+                year22+=date2[i];
+            }
+            if(i>4 && i<7){
+                month22+=date2[i];
+            }
+            if(i>7){
+                day22+=date2[i];
+            }
+        }
+        stringstream y2(year22); 
+        int year2 = 0; 
+        y2 >> year2;
+        
+        stringstream m2(month22); 
+        int month2 = 0; 
+        m2 >> month2; 
+        
+        stringstream d2(day22); 
+        int day2 = 0; 
+        d2 >> day2; 
+        int datee2=date(year2, month2, day2);
+        
+        return abs(datee2-datee1);
+        
+    }
+};
