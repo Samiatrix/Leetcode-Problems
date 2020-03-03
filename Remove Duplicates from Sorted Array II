@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        unordered_map<int, int> dup;
+        for(int i=0;i<nums.size();i++){
+            dup[nums[i]]++;
+        }
+        nums.clear();
+        unordered_map<int, int>::iterator itr;
+        for(itr=dup.begin();itr!=dup.end();itr++){
+            if(itr->second>=2){
+            nums.push_back(itr->first);
+            nums.push_back(itr->first);  
+            }    
+            else if(itr->second==1){
+            nums.push_back(itr->first);
+            }    
+        }
+        sort(nums.begin(), nums.end());
+        return nums.size();
+    }
+};
