@@ -14,39 +14,26 @@ public:
         if(k == 0)  return head;
         if(head == NULL)    return NULL;
         ListNode* curr = head;
-        ListNode* rot = NULL;
         ListNode* first = head;
-        ListNode* second = head;
-        ListNode* last = NULL;
-        int total = 0;
-        while(curr){
+        
+        int total = 1;
+        while(curr->next){
             total++;
             curr = curr->next;
         }
+        
         k%=total;
+        cout<<k<<endl;
         if(k == 0)  return head;
-        int cut = total-k;
-        int count = 0;
-        while(first){
-            count++;
-            if(count == cut){
-                rot = first->next;
-                first->next = NULL;
-                break;
-            }
+        ListNode* tail = curr;
+        tail->next = head;
+        int cut = total-k-1;
+        while(cut--){
+            cout<<first->val<<endl;
             first = first->next;
         }
-        second = rot;
-        // cout<<first->val<<endl;
-        // cout<<rot->val<<endl;
-        count = 0;
-        while(second->next && count<k){
-            cout<<second->val<<endl;
-            second = second->next;
-            count++;
-        }
-        second->next = head;;
-        return rot;
-        
+        ListNode* ans = first->next;
+        first->next = NULL;
+        return ans;
     }
 };
