@@ -8,9 +8,10 @@ public:
             return;
         }
         
-        dfs(can, tar, curr, ans, ind+1);
         curr.push_back(can[ind]);
         dfs(can, tar-can[ind], curr, ans, ind);
+        curr.pop_back();
+        dfs(can, tar, curr, ans, ind+1);
         // dfs(can, tar-can[ind], curr, ans, ind+1);
         
         
