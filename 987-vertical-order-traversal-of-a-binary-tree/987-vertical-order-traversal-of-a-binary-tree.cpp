@@ -33,14 +33,9 @@ public:
             vector<int> t;
             for(auto j:i.second){
                 vector<int> g = j.second;
-                // for(auto f:g)   cout<<f<<" ";
-                // cout<<endl;
                 sort(g.begin(), g.end());
-                // for(auto f:g)   cout<<f<<" ";
-                // cout<<endl;
                 for(auto k:g)    t.push_back(k);
             }
-            // vector<int> t(i.second.begin(), i.second.end());
             ans.push_back(t);
         }
         return ans;
