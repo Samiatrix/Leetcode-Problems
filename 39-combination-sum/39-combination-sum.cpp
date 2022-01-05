@@ -7,11 +7,13 @@ public:
             ans.push_back(curr);
             return;
         }
-        
-        curr.push_back(can[ind]);
-        dfs(can, tar-can[ind], curr, ans, ind);
-        curr.pop_back();
-        dfs(can, tar, curr, ans, ind+1);
+        else{
+            for(int i = ind;i<can.size();i++){
+                curr.push_back(can[i]);
+                dfs(can, tar-can[i], curr, ans, i);
+                curr.pop_back();
+            }
+        }
         // dfs(can, tar-can[ind], curr, ans, ind+1);
         
         
