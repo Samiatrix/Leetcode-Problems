@@ -1,13 +1,13 @@
 class Solution {
 public:
-    bool isPalindrome(string& s, int l, int r){
+    bool isPalindrome(string s, int l, int r){
         while(l<r){
             if(s[l++]!=s[r--])  return false;
         }
         return true;
     }
-    void dfs(string& s, int ind, vector<string>& curr, vector<vector<string>>& ans){
-        if(ind >= s.size()){
+    void dfs(string s, int ind, vector<string> curr, vector<vector<string>>& ans){
+        if(ind>=s.size()){
             ans.push_back(curr);
             return;
         }
