@@ -11,19 +11,18 @@
  */
 class Solution {
 public:
-    vector<pair<int, int>> v;
-    int height(TreeNode* root){
-        if(root == NULL)    return 0;
-        int l = height(root->left);
-        int r = height(root->right);
-        v.push_back({l, r});
+    int depth(TreeNode* root){
+        if(!root)   return 0;
+        
+        int l = depth(root->left);
+        if(l == -1) return -1;
+        int r = depth(root->right);
+        if(r == -1) return -1;
+        if(abs(l-r) > 1)    return -1;
         return 1+max(l, r);
     }
     bool isBalanced(TreeNode* root) {
-        height(root);
-        for(auto i:v){
-            if(abs(i.first-i.second) > 1)   return false;
-        }
-        return true;
+        int d = depth(root);
+        return d != -1;
     }
 };
