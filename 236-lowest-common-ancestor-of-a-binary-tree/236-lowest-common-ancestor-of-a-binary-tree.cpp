@@ -9,17 +9,16 @@
  */
 class Solution {
 public:
-//     TreeNode* lca(TreeNode* root, TreeNode* a, TreeNode* b){
-//         if(root == NULL)    return NULL;
-        
-//     }
+    // TreeNode* lca(TreeNode* root, TreeNode* p, TreeNode* q){
+    //     if(root == NULL)    return 
+    // }
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-        if(root == NULL || root->val == p->val || root->val == q->val)  return root;
-        TreeNode* lcaa = lowestCommonAncestor(root->left, p, q);
-        TreeNode* lcab = lowestCommonAncestor(root->right, p, q);
-        if(!lcaa)   return lcab;
-        else if(!lcab)  return lcaa;
+        if(root == NULL)    return root;
+        if(root->val == p->val || root->val == q->val)  return root;
+        TreeNode* a = lowestCommonAncestor(root->left, p, q);
+        TreeNode* b = lowestCommonAncestor(root->right, p, q);
+        if(a == NULL)  return b;
+        else if(b==NULL )   return a;
         return root;
-        
     }
 };
