@@ -1,15 +1,12 @@
 class MyStack {
 public:
     queue<int> q;
-    int to;
     MyStack() {
         
     }
     
     void push(int x) {
-        to = x;
         q.push(x);
-        
         int s = q.size();
         while(s>1){
             int t = q.front();
@@ -17,17 +14,11 @@ public:
             q.push(t);
             s--;
         }
-        
-        cout<<q.front()<<endl;
     }
     
     int pop() {
-        // int t = to;
-        // cout<<q.front()<<" ";
-        // q.pop();
-        to = q.front();
+        int to = q.front();
         q.pop();
-        // cout<<t<<" "<<to<<endl;
         return to;
     }
     
