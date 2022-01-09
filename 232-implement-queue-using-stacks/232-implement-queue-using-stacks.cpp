@@ -8,7 +8,7 @@ public:
     }
     
     void push(int x) {
-        // if(s1.empty())  front = x;
+        if(s1.empty())  front = x;
         s1.push(x);
     }
     
@@ -26,10 +26,7 @@ public:
     
     int peek() {
         if(s2.empty()){
-            while(!s1.empty()){
-                s2.push(s1.top());
-                s1.pop();
-            }
+            return front;
         }
         return s2.top();
     }
