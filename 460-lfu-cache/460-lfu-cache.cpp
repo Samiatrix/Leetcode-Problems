@@ -1,52 +1,45 @@
 class LFUCache {
 public:
     unordered_map<int, pair<int, int>> keyValueFreq;
-    unordered_map<int, list<int>>freqToKey;
-    unordered_map<int, list<int>::iterator> keyListit;
-    int cap;
+    unordered_map<int, list<int>> freqKey;
+    unordered_map<int, list<int>::iterator> keylistit;
     int minf;
+    int cap;
     LFUCache(int capacity) {
         cap = capacity;
     }
     
     int get(int key) {
-        if(!keyValueFreq.count(key))    return -1;
-        //remove old
+        if(!keyValueFreq.count(key)) return -1;
         auto curr = keyValueFreq[key];
         int f = curr.second;
-        auto it = keyListit[key];
-        freqToKey[f].erase(it);
-        keyListit.erase(key);
-        f++;
-        //again add
-        freqToKey[f].push_front(key);
-        keyListit[key] = freqToKey[f].begin();
+        auto it = keylistit[key];
+        freqKey[f++].erase(it);
+        keylistit.erase(key);
+        freqKey[f].push_front(key);
+        keylistit[key] = freqKey[f].begin();
         keyValueFreq[key].second = f;
-        if(freqToKey[minf].empty())    minf = f;
+        if(freqKey[minf].empty())    minf = f;
         return curr.first;
     }
     
     void put(int key, int value) {
-        
-        if(cap<=0)  return;
+        if(cap<=0)  return ;
         if(get(key)!=-1){
             keyValueFreq[key].first = value;
-            return;
+            return ;
         }
-        // cout<<"keyvaluemap check done"<<endl;
         if(keyValueFreq.size() == cap){
-            int k = freqToKey[minf].back();
+            int k = freqKey[minf].back();
+            freqKey[minf].pop_back();
+            keylistit.erase(k);
             keyValueFreq.erase(k);
-            freqToKey[minf].pop_back();
-            keyListit.erase(k);
-            
         }
-        
+        // cout<<"checks done"<<endl;
         minf = 1;
         keyValueFreq[key] = {value, minf};
-        freqToKey[minf].push_front(key);
-        keyListit[key] = freqToKey[minf].begin();
-        
+        freqKey[minf].push_front(key);
+        keylistit[key] = freqKey[minf].begin();
     }
 };
 
