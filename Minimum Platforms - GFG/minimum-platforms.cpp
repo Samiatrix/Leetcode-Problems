@@ -12,25 +12,16 @@ class Solution{
     //railway station such that no train waits.
     int findPlatform(int arr[], int dep[], int n)
     {
-    	sort(arr, arr+n);
-    	sort(dep, dep+n);
-    	int i=0, j = 0;
+    	multiset<pair<int, char>> ms;
+    	for(auto i=0;i<n;i++) ms.insert({arr[i], 'a'});
+    	for(auto i=0;i<n;i++) ms.insert({dep[i], 'd'});
+    	
     	int ans = 0;
     	int curr = 0;
-    	while(i<n && j<n){
-    	    if(arr[i]<=dep[j]){
-    	        i++;
-    	        curr++;
-    	    }
-    	    else{
-    	        j++;
-    	        curr--;
-    	    }
-    	    ans = max(ans, curr);
-    	}
-    	while(i<n){
-    	    i++;
-    	    curr++;
+    	for(auto i:ms){
+    	    if(i.second == 'a') curr++;
+    	    else    curr--;
+    	    
     	    ans = max(ans, curr);
     	}
     	return ans;
