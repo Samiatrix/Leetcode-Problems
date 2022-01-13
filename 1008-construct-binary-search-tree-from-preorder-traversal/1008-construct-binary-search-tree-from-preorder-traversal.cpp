@@ -11,28 +11,15 @@
  */
 class Solution {
 public:
-    TreeNode* construct(vector<int>& preorder, int l, int r){
-        if(l>r) return NULL;
-        TreeNode* root = new TreeNode(preorder[l]);
-        int rs = -1;
-        if(l+1>r)    return root;
-        for(int i=l+1;i<=r;i++){
-            if(preorder[i]>preorder[l]){
-                rs = i;
-                break;
-            }
-        }
-        if(l+1<=r && rs == -1){
-            root->left = construct(preorder, l+1, r);
-            return root;
-        }
-        // if(rs >= preorder.size()) return root;
-        root->left = construct(preorder, l+1, rs-1);
-        root->right = construct(preorder, rs, r);
+    int ind=0;
+    TreeNode* construct(vector<int>& preorder, int limit){
+        if(ind>=preorder.size() || preorder[ind]>=limit)    return NULL;
+        TreeNode* root = new TreeNode(preorder[ind++]);
+        root->left = construct(preorder, root->val);
+        root->right = construct(preorder, limit);
         return root;
-        
     }
     TreeNode* bstFromPreorder(vector<int>& preorder) {
-        return construct(preorder, 0, preorder.size()-1);
+        return construct(preorder, INT_MAX);
     }
 };
