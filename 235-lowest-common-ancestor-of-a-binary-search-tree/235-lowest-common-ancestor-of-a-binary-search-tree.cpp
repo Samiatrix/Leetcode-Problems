@@ -20,6 +20,19 @@ public:
         return root;
     }
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        //iterative LCA for BST
+        TreeNode* curr = root;
+        while(true){
+            if((curr->val < p->val) && (curr->val< q->val)){
+                curr = curr->right;
+            }
+            else if((curr->val > p->val) && (curr->val > q->val))   curr = curr->left;
+            else    break;
+        }
+        return curr;
+        
+        
+        //recursive LCA for BST
         return lca(root, p, q);
         
         
