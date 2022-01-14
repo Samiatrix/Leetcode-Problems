@@ -18,20 +18,17 @@ public:
         in.push_back(root->val);
         inorder(root->right);
     }
+    bool find(TreeNode* root, TreeNode* curr, int t){
+        if(root == NULL)    return false;
+        
+        return (root->val == t && root != curr) || find(root->left, curr, t) || find(root->right, curr, t);
+    }
+    bool dfs(TreeNode* root, TreeNode* curr, int k){
+        if(!curr)   return false;
+        
+        return find(root, curr, k-(curr->val)) || dfs(root, curr->left, k) || dfs(root, curr->right, k);
+    }
     bool findTarget(TreeNode* root, int k) {
-        inorder(root);
-        int l = 0, r = in.size()-1;
-        while(l<r){
-            if(in[l]+in[r] == k)    return true;
-            else if(in[l]+in[r] < k)    l++;
-            else    r--;
-        }
-        return false;
-        unordered_map<int, int> mp;
-        for(auto i:in){
-            if(mp.count(k-i))   return true;
-            mp[i]++;
-        }
-        return false;
+        return dfs(root, root, k);
     }
 };
