@@ -97,8 +97,16 @@ struct Node {
 class Solution
 {
     public:
+    Node* largest(Node* root, int& k){
+        if(!root)   return NULL;
+        Node* r = largest(root->right, k);
+        if(r)   return r;
+        if(--k == 0)    return root;
+        return largest(root->left, k);
+    }
     int kthLargest(Node *root, int K)
     {
+        return largest(root, K)->data;
         vector<int> in;
         stack<Node*> s;
         while(root || !s.empty()){
