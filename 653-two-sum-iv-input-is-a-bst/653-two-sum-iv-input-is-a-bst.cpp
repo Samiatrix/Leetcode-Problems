@@ -20,6 +20,13 @@ public:
     }
     bool findTarget(TreeNode* root, int k) {
         inorder(root);
+        int l = 0, r = in.size()-1;
+        while(l<r){
+            if(in[l]+in[r] == k)    return true;
+            else if(in[l]+in[r] < k)    l++;
+            else    r--;
+        }
+        return false;
         unordered_map<int, int> mp;
         for(auto i:in){
             if(mp.count(k-i))   return true;
