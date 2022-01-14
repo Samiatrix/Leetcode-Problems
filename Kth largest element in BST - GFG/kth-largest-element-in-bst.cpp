@@ -98,9 +98,9 @@ class Solution
 {
     public:
     Node* largest(Node* root, int& k){
-        if(!root)   return NULL;
+        if(!root)   return root;
         Node* r = largest(root->right, k);
-        if(r)   return r;
+        if(r)  return r;
         if(--k == 0)    return root;
         return largest(root->left, k);
     }
