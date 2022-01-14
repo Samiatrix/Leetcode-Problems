@@ -13,26 +13,39 @@ class BSTIterator {
 public:
     vector<int> in;
     int ind = 0;
-    BSTIterator(TreeNode* root) {
-        stack<TreeNode*> s;
-        while(root || !s.empty()){
-            while(root){
-                s.push(root);
-                root = root->left;
-            }
-            root = s.top();
-            s.pop();
-            in.push_back(root->val);
-            root = root->right;
+    stack<TreeNode*> s;
+    void pushh(TreeNode* root){
+        while(root){
+            s.push(root);
+            root = root->left;
         }
+    }
+    BSTIterator(TreeNode* root) {
+        pushh(root);
+        // stack<TreeNode*> s;
+        // while(root || !s.empty()){
+        //     while(root){
+        //         s.push(root);
+        //         root = root->left;
+        //     }
+        //     root = s.top();
+        //     s.pop();
+        //     in.push_back(root->val);
+        //     root = root->right;
+        // }
     }
     
     int next() {
-        return in[ind++];
+        TreeNode* curr = s.top();
+        s.pop();
+        int n = curr->val;
+        pushh(curr->right);
+        return n;
+        // return in[ind++];
     }
     
     bool hasNext() {
-        return ind<in.size();
+        return !s.empty();
     }
 };
 
