@@ -1,7 +1,7 @@
 class Solution {
 public:
     pair<int, int> palindrome(string s, int l, int r){
-        if(s[l]!=s[r])  return {0, 0};
+        // if(s[l]!=s[r])  return {0, 0};
         while(l>=0 && r<s.size() && s[l] == s[r]){
             l--;
             r++;
