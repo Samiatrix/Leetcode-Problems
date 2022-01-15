@@ -7,7 +7,6 @@ public:
             r++;
         }
         return {l+1, r-l-1};
-        // return s.substr(l+1, r-l-1);
     }
     string longestPalindrome(string s) {
         int l = 0;
