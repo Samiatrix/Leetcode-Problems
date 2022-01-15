@@ -16,8 +16,7 @@ public:
         for(int i=0;i<s.size();i++){
             string a = palindrome(s, i, i);
             // cout<<a<<endl;
-            string b = "";
-            if(i+1<s.size())    b = palindrome(s, i, i+1);
+            string b = palindrome(s, i, i+1);
             // cout<<a<<" "<<b<<endl;
             if(a.size()>g){
                 ans = a;
