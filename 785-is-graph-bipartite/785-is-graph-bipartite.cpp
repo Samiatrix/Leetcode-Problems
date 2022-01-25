@@ -5,7 +5,7 @@ public:
         vector<int> color(n+1, -1);
         queue<int> q;
         for(int i=0;i<n;i++){
-            if(color[i]==-1){
+            if(color[i] == -1){
                 q.push(i);
                 color[i] = 1;
                 while(!q.empty()){
@@ -20,7 +20,7 @@ public:
                     }
                 }
             }
-        }
+        }\
         return true;
     }
 };
