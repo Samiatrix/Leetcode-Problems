@@ -25,7 +25,7 @@ class Solution{
 	    for(int i=0;i<n;i++)    dp[i][0] = 1;
 	    dp[0][nums[0]] = 1;
 	    for(int i=1;i<n;i++){
-	        for(int j=1;j<=target;j++){
+	        for(int j=0;j<=target;j++){
 	            int take = 0;
                 if(j>=nums[i]) take = dp[i-1][j-nums[i]]%(1000000007);
                 int notTake = dp[i-1][j]%(1000000007);
