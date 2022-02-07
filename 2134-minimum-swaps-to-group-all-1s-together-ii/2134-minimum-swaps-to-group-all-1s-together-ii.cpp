@@ -7,8 +7,8 @@ public:
         int curr = 0;
         int n = nums.size();
         for(int i=0;i<n*2;i++){
-            if(i>=count && nums[(i - count)%n] == 1)  curr--;
-            if(nums[i%n] == 1) curr++;
+            if(i>=count && nums[(i-count)%n] == 1)  curr--;
+            if(nums[i%n])   curr++;
             ans = max(ans, curr);
         }
         return count-ans;
