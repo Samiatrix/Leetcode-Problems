@@ -19,10 +19,17 @@ class Solution{
         if(dp[l][r]!=-1)    return dp[l][r];
         return dp[l][r] = s[l] == s[r] ? count(s, l+1, r-1, dp) : 1+min(count(s, l+1, r, dp), count(s, l, r-1, dp));
     }
-    int countMin(string str){
-        int n = str.size();
-        vector<vector<int>> dp(n, vector<int>(n, -1));
-        return count(str, 0, n-1, dp);
+    int countMin(string s){
+        int n = s.size();
+        vector<vector<int>> dp(n, vector<int>(n, 0));
+        for(int h = 1;h<n;h++){
+            for(int l = 0, r = h;r<n;l++, r++){
+                dp[l][r] = s[l] == s[r] ? dp[l+1][r-1] : 1+min(dp[l+1][r], dp[l][r-1]);
+            }
+        }
+        return dp[0][n-1];
+        
+        // return count(str, 0, n-1, dp);
     }
 };
 
