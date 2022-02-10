@@ -13,19 +13,6 @@ public:
 	void matchPairs(char nuts[], char bolts[], int n) {
 	    sort(nuts, nuts+n);
 	    sort(bolts, bolts+n);
-        unordered_set<char> nut;
-        for(int i=0;i<n;i++)    nut.insert(i);
-        for(int i=0;i<n;i++){
-           if(nut.count(bolts[i]))   nuts[i] = bolts[i];
-        }
-        
-        // for(int i=0;i<n;i++)  cout<<nuts[i]<<" ";
-        // cout<<endl;
-        // for(int i=0;i<n;i++)  cout<<bolts[i]<<" ";
-        // cout<<endl;
-        // sort(nuts, nuts+n);
-        // sort(bolts, bolts+n);
-        
 	}
 
 };
