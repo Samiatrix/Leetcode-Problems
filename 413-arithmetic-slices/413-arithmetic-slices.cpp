@@ -3,20 +3,20 @@ public:
     int numberOfArithmeticSlices(vector<int>& nums) {
         int ans = 0;
         if(nums.size()<3)   return 0;
-        for(int i=0;i<nums.size()-2;i++){
-            int prev = nums[i+1]-nums[i];
-            // int curr = 0;
-            for(int j=i+1;j<nums.size()-1;j++){
-                int diff = nums[j+1]-nums[j];
-                
-                if(diff == prev){
-                    ans++;
-                }
-                else{
-                    break;
-                }
+        int count = 0;
+        int prev = nums[1]-nums[0];
+        for(int i=1;i<nums.size()-1;i++){
+            int diff = nums[i+1]-nums[i];
+            
+            if(prev == diff){
+                count++;
+            }
+            else{
+                prev = diff;
+                count = 0;
             }
             
+            ans += count;
         }
         return ans;
     }
