@@ -1,25 +1,21 @@
 class Solution {
 public:
-    int adj(vector<int>& arr){
-        int prev = arr[0];
-        int prev2 = 0;
-        for(int i=1;i<arr.size();i++){
-            int l = arr[i]+ (i>1 ? prev2 : 0);
-            int r = prev;
-            prev2 = prev;
-            prev = max(l, r);
-        }
-        return prev;
+    int robb(vector<int>& nums, int n, vector<int>& dp){
+        if(n == 0)  return nums[n];
+        if(dp[n]!=-1)   return dp[n];
+        int take = nums[n];
+        if(n>1) take += robb(nums, n-2, dp);
+        int notTake = robb(nums, n-1, dp);
+        return dp[n] = max(take, notTake);
     }
     int rob(vector<int>& nums) {
-        if(nums.size() == 1) return nums[0];
-        vector<int> a, b;
+        if(nums.size() == 1)    return nums[0];
+        vector<int> nums1, nums2;
         for(int i=0;i<nums.size();i++){
-            if(i!=0)    a.push_back(nums[i]);
-            if(i!=nums.size()-1)    b.push_back(nums[i]);
+            if(i!=0)    nums2.push_back(nums[i]);
+            if(i!=nums.size()-1)    nums1.push_back(nums[i]);
         }
-        int l = adj(a);
-        int r = adj(b);
-        return max(l, r);
+        vector<int> dp1(nums1.size(), -1), dp2(nums2.size(), -1);
+        return max(robb(nums1, nums1.size()-1, dp1), robb(nums2, nums2.size()-1, dp2));
     }
 };
