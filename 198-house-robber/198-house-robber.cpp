@@ -18,6 +18,6 @@ public:
             dp[i] = max(take, notTake);
         }
         return dp.back();
-        // return robber(nums, nums.size()-1, dp);
+        return robber(nums, nums.size()-1, dp);
     }
 };
