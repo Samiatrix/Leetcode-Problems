@@ -1,12 +1,12 @@
 class Solution {
 public:
-    int robber(vector<int>& nums, int n, vector<int>& dp){
-        if(n == 0)  return nums[n];
-        if(dp[n]!=-1)   return dp[n];
-        int take = nums[n];
-        if(n>1) take += robber(nums, n-2, dp);
-        int notTake = robber(nums, n-1, dp);
-        return dp[n] = max(take, notTake);
+    int robber(vector<int>& nums, int i, vector<int>& dp){
+        if(i == 0)  return nums[0];
+        if(dp[i]!=-1)   return dp[i];
+        int take = nums[i];
+        if(i>1) take += robber(nums, i-2, dp);
+        int notTake = robber(nums, i-1, dp);
+        return dp[i] = max(take, notTake);
     }
     int rob(vector<int>& nums) {
         vector<int> dp(nums.size(), -1);
