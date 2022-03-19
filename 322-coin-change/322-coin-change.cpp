@@ -1,21 +1,20 @@
 class Solution {
 public:
-    int change(vector<int>& coins, int amount, int n, vector<vector<long>>& dp){
-        if(n<0 || amount<0) return INT_MAX;
-        if(amount == 0) return 0;
-        if(dp[amount][n]!=-1)   return dp[amount][n];
-        int take = change(coins, amount-coins[n], n, dp);
-        int notTake = change(coins, amount, n-1, dp);
-        return dp[amount][n] = min(notTake, take != INT_MAX ? take+1 : INT_MAX);
+    int coin(vector<int>& coins, int i, int t, vector<vector<int>>& dp){
+        if(i<0) return INT_MAX;
+        if(t<0) return INT_MAX;
+        if(t == 0)   return 0;
+        if(dp[i][t]!=-1)    return dp[i][t];
+        int take = INT_MAX;
+        if(coins[i]<=t) take = coin(coins, i, t-coins[i], dp);
+        int notTake = coin(coins, i-1, t, dp);
+        return dp[i][t] = min(take == INT_MAX ? INT_MAX : 1+take, notTake);
     }
     int coinChange(vector<int>& coins, int amount) {
-        vector<int> dp(amount+1, amount+1);
-        dp[0]=0;
-        for(int i=1;i<=amount;i++){
-            for(int j=0;j<coins.size();j++){
-                if(i>=coins[j]) dp[i] = min(dp[i], dp[i-coins[j]]+1);
-            }
-        }
-        return dp[amount] > amount ? -1 : dp[amount];
+        sort(coins.begin(), coins.end());
+        int n = coins.size();
+        vector<vector<int>> dp(n, vector<int>(amount+1, -1));
+        int ans = coin(coins, coins.size()-1, amount, dp);
+        return ans == INT_MAX ? -1 : ans;
     }
 };
