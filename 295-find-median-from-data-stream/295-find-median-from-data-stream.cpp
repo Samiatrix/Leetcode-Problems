@@ -1,53 +1,50 @@
 class MedianFinder {
 public:
-    priority_queue<int> s;
-    priority_queue<int, vector<int>, greater<int>> g;
-    double med = 0.0;
+    priority_queue<int> maxHeap;
+    priority_queue<int, vector<int>, greater<int>> minHeap;
+    double median;
     MedianFinder() {
-        
+        median = 0;
     }
     
     void addNum(int num) {
-        if(s.size() == 0 && g.size() == 0){
-            med = num;
-            s.push(num);
-            return;
-        }
-        else if(s.size()>g.size()){
-            if(num<med){
-                g.push(s.top());
-                s.pop();
-                s.push(num);
+        if(maxHeap.size() == minHeap.size()){
+            if(median > num){
+                maxHeap.push(num);
+                median = maxHeap.top();
             }
             else{
-                g.push(num);
-            }
-            med = (g.top()+s.top())/2.0;
-        }
-        else if(s.size() == g.size()){
-            if(num<med){
-                s.push(num);
-                med = s.top();;
-            }
-            else{
-                g.push(num);
-                med = g.top();
+                minHeap.push(num);
+                median = minHeap.top();
             }
         }
-        else if(s.size()<g.size()){
-            if(num>med){
-                s.push(g.top());
-                g.pop();
-                g.push(num);
+        else if(maxHeap.size() > minHeap.size()){
+            if(median > num){
+                maxHeap.push(num);
+                minHeap.push(maxHeap.top());
+                maxHeap.pop();
             }
             else{
-                s.push(num);
+                minHeap.push(num);
             }
-            med = (g.top()+s.top())/2.0;
-        }        
+            median = (maxHeap.top() + minHeap.top())/2.0;
+        }
+        else if(maxHeap.size() < minHeap.size()){
+            if(median > num){
+                maxHeap.push(num);
+            }
+            else{
+                minHeap.push(num);
+                maxHeap.push(minHeap.top());
+                minHeap.pop();
+            }
+            median = (maxHeap.top() + minHeap.top())/2.0;
+        }
     }
+    
     double findMedian() {
-        return med;
+        return median;
+        
     }
 };
 
