@@ -21,9 +21,9 @@ public:
         while(!s.empty()){
             auto curr = s.top();
             s.pop();
-            if(curr == NULL)    continue;
-            if(curr->val > low) s.push(curr->left);
-            if(curr->val < high)   s.push(curr->right);
+            if(!curr)   continue;
+            if(curr->val > low)   s.push(curr->left);
+            if(curr->val < high) s.push(curr->right);
             if(low <= curr->val && curr->val <= high)   ans+=curr->val;
         }
         return ans;
