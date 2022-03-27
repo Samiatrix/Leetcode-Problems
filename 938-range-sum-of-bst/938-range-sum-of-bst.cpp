@@ -13,17 +13,19 @@ class Solution {
 public:
     int rangeSumBST(TreeNode* root, int low, int high) {
         if(root == NULL)    return 0;
-        return (low <= root->val && root->val <= high ? root->val : 0) + rangeSumBST(root->left, low, high) + rangeSumBST(root->right, low, high);
-        // int t = 0;
-        // if(low <= root->val && root->val <= high){
-        //     t+=root->val + rangeSumBST(root->left, low, high) + rangeSumBST(root->right, low, high);
-        // }
-        // else if(low <= root->val && root->val > high){
-        //     t += rangeSumBST(root->left, low, high);
-        // }
-        // else if(low > root->val && root->val <= high){
-        //     t += rangeSumBST(root->right, low, high);
-        // }
-        // return t;
+        // return (low <= root->val && root->val <= high ? root->val : 0) + rangeSumBST(root->left, low, high) + rangeSumBST(root->right, low, high);
+        
+        stack<TreeNode*> s;
+        s.push(root);
+        int ans = 0;
+        while(!s.empty()){
+            auto curr = s.top();
+            s.pop();
+            if(curr == NULL)    continue;
+            if(curr->val > low) s.push(curr->left);
+            if(curr->val < high)   s.push(curr->right);
+            if(low <= curr->val && curr->val <= high)   ans+=curr->val;
+        }
+        return ans;
     }
 };
