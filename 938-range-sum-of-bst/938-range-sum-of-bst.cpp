@@ -13,16 +13,17 @@ class Solution {
 public:
     int rangeSumBST(TreeNode* root, int low, int high) {
         if(root == NULL)    return 0;
-        int t = 0;
-        if(low <= root->val && root->val <= high){
-            t+=root->val + rangeSumBST(root->left, low, high) + rangeSumBST(root->right, low, high);
-        }
-        else if(low <= root->val && root->val > high){
-            t += rangeSumBST(root->left, low, high);
-        }
-        else if(low > root->val && root->val <= high){
-            t += rangeSumBST(root->right, low, high);
-        }
-        return t;
+        return (low <= root->val && root->val <= high ? root->val : 0) + rangeSumBST(root->left, low, high) + rangeSumBST(root->right, low, high);
+        // int t = 0;
+        // if(low <= root->val && root->val <= high){
+        //     t+=root->val + rangeSumBST(root->left, low, high) + rangeSumBST(root->right, low, high);
+        // }
+        // else if(low <= root->val && root->val > high){
+        //     t += rangeSumBST(root->left, low, high);
+        // }
+        // else if(low > root->val && root->val <= high){
+        //     t += rangeSumBST(root->right, low, high);
+        // }
+        // return t;
     }
 };
