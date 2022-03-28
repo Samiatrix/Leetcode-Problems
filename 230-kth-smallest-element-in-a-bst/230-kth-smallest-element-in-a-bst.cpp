@@ -19,8 +19,9 @@ public:
         inorder(root->right);
     }
     int kthSmallest(TreeNode* root, int k) {
-        TreeNode* prev = NULL;
+        //iterative with stack
         stack<TreeNode*> s;
+        TreeNode* prev = new TreeNode(-1);
         while(root || !s.empty()){
             while(root){
                 s.push(root);
@@ -30,12 +31,14 @@ public:
             s.pop();
             prev = root;
             k--;
-            if(k == 0)    break;
+            if(k == 0)  break;
+            
             root = root->right;
+            
         }
         return prev->val;
         //with recursion O(n) time and space;
-        inorder(root);
-        return in[k-1];
+        // inorder(root);
+        // return in[k-1];
     }
 };
