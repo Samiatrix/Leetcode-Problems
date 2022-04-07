@@ -1,32 +1,23 @@
 class Solution {
 public:
     string minWindow(string s, string t) {
-        vector<int> freq(128, 0);
-        for(auto i:t){
-            freq[i]++;
-        }
-        int start = 0, end = 0, count = t.size(), mins = 0, minl = INT_MAX;
-        while(end<s.size()){
-            if(freq[s[end]]>0){
-                count--;                
+        unordered_map<char, int> mp;
+        for(auto i:t)   mp[i]++;
+        int len = INT_MAX, start = 0, count = t.size();;
+        for(int i=0, j=0;j<s.size();j++){
+            if(mp[s[j]]-->0){
+                count--;
             }
-            freq[s[end]]--;
-            end++;
-            
             while(count == 0){
-                if(end - start < minl){
-                    mins = start;
-                    minl = end - start;
+                if(j-i+1 < len){
+                    len = j-i+1;
+                    start = i;
                 }
-                freq[s[start]]++;
-                // When char exists in t, increase counter.
-                if (freq[s[start]] > 0)
-                    count++;
-                start++;
-            }            
+                
+                if(mp[s[i++]]++ == 0)  count++;
+            }
         }
-        if(minl == INT_MAX) return "";
-        else    return s.substr(mins, minl);
-
+        if(len == INT_MAX)  return "";
+        return s.substr(start, len);
     }
 };
