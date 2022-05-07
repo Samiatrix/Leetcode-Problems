@@ -6,7 +6,7 @@ public:
         for(int i=0, j = 0;j<s.size();j++){
             mp[s[j]]++;
             
-            while(i<s.size() && mp[s[j]] > 1){
+            while(mp[s[j]]>1){
                 mp[s[i++]]--;
             }
             
