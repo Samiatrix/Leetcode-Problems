@@ -1,26 +1,26 @@
 class Solution {
 public:
-    pair<int, int> pal(string& s, int l, int r){
-        if(s[l]!=s[r])  return {0, 0};
-        while(l>=0 && r<s.size() && s[l] == s[r]){
-            l--;
-            r++;
+    pair<int, int> palindrome(string s, int i, int j){
+        if(s[i]!=s[j])  return {-1, -1};
+        while(i>=0 && j<s.size() && s[i] == s[j]){
+            i--;
+            j++;
         }
-        return {l+1, r-l-1};
+        return {i+1, j-i-1};
     }
     string longestPalindrome(string s) {
         string ans = "";
         int len = 0;
         for(int i=0;i<s.size();i++){
-            pair<int, int> s1 = pal(s, i, i);
-            pair<int, int> s2 = pal(s, i, i+1);
-            if(len<s1.second){
-                len = s1.second;
-                ans = s.substr(s1.first, len);
+            pair<int, int> a = palindrome(s, i, i);
+            pair<int, int> b = palindrome(s, i, i+1);
+            if(a.second>len){
+                ans = s.substr(a.first, a.second);
+                len = a.second;
             }
-            if(len<s2.second){
-                len = s2.second;
-                ans = s.substr(s2.first, len);
+            if(b.second>len){
+                ans = s.substr(b.first, b.second);
+                len = b.second;
             }
         }
         return ans;
