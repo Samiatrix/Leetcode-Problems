@@ -1,37 +1,28 @@
 class Solution {
 public:
     vector<int> findAnagrams(string s, string p) {
-         vector<int> res;
-        map<char,int> map;
-        int start=0;
-        int matched = 0;
-        for(auto x : p){
-            map[x]++;
-        }
+        unordered_map<char, int> mp;
+        for(auto i:p)   mp[i]++;
         
-        for(int end =0 ; end<s.size(); end++){
-            char right  = s[end];
-            if(map.find(right)!=map.end()){
-                map[right]--;
-                if(map[right]==0){
-                    matched++;
-                }
+        vector<int> ans;
+        int freq = 0;
+        for(int i = 0, j = 0;j<s.size();j++){
+            if(mp.count(s[j])){
+                mp[s[j]]--;
+                if(mp[s[j]] == 0)   freq++;
             }
-            if(matched==map.size())
-            {
-                res.push_back(start);
-            }
-            if(end>=p.size()-1){
-                char left = s[start++];
-                if(map.find(left)!=map.end()){
-                    if(map[left]==0){
-                        matched--;
-                    }
-                    map[left]++;
-                }
-            }
+            if(freq == mp.size())   ans.push_back(i);
             
+            if(j>=p.size()-1){
+                char ch = s[i++];
+                if(mp.count(ch)){
+                    if(mp[ch] == 0){
+                        freq--;
+                    }
+                    mp[ch]++;
+                }
+            }
         }
-        return res;
+        return ans;
     }
 };
