@@ -11,14 +11,13 @@
 class Solution {
 public:
     ListNode* deleteDuplicates(ListNode* head) {
-        ListNode* dummy = new ListNode();
+        ListNode* dummy = new ListNode(0);
         ListNode* ans = dummy;
         dummy->next = head;
-        
         ListNode* curr = head;
         while(curr){
             if(curr->next && curr->next->val == curr->val){
-                while(curr->next && curr->next->val == curr->val) curr = curr->next;
+                while(curr->next && curr->next->val == curr->val)   curr = curr->next;
                 ans->next = curr->next;
             }
             else{
