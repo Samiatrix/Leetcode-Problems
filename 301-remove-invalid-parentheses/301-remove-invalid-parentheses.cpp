@@ -12,19 +12,22 @@ public:
         return count == 0;
     }
     vector<string> removeInvalidParentheses(string s) {
-        queue<string> q;
-        q.push(s);
-        unordered_set<string> st;
+        queue<pair<string, int>> q;
+        q.push({s, 0});
+        // unordered_set<string> st;
         vector<string> ans;
         while(!q.empty()){
             auto curr = q.front();
             q.pop();
-            if(st.count(curr))  continue;
-            st.insert(curr);
-            if(isValid(curr))   ans.push_back(curr);
+            // if(st.count(curr))  continue;
+            // st.insert(curr);
+            string st = curr.first;
+            int ind = curr.second;
+            
+            if(isValid(st))   ans.push_back(st);
             else if(ans.empty()){
-                for(int i=0;i<curr.size();i++){
-                    if(curr[i] == '(' || curr[i] == ')')    q.push(curr.substr(0, i)+curr.substr(i+1));
+                for(int i=ind;i<st.size();i++){
+                    if((st[i] == '(' || st[i] == ')') && (i==ind || st[i-1] != st[i]))    q.push({st.substr(0, i)+st.substr(i+1), i});
                 }
             }
         }
