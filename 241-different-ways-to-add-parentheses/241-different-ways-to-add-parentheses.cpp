@@ -22,8 +22,6 @@ public:
             }
         }
         if (ans.empty()){
-            // cout<<(expression[0])<<endl;
-            // cout<<(atoi(expression.c_str())<<endl;
             ans.push_back(stoi(expression));
         }
         return ans;
