@@ -15,22 +15,23 @@ public:
         if(!root)   return {};
         vector<vector<int>> ans;
         queue<TreeNode*> q;
-        q.push(root);
         bool left = true;
+        q.push(root);
         while(!q.empty()){
             int s = q.size();
-            vector<int> t(s);
             int i = left ? 0 : s-1;
+            vector<int>temp(s);
             while(s--){
                 auto curr = q.front();
                 q.pop();
-                t[i] = curr->val;
+                temp[i] = curr->val;
                 if(curr->left)  q.push(curr->left);
                 if(curr->right)  q.push(curr->right);
-                left ? i++ : i--;
+                if(left)    i++;
+                else    i--;
             }
+            ans.push_back(temp);
             left = !left;
-            ans.push_back(t);
         }
         return ans;
     }
