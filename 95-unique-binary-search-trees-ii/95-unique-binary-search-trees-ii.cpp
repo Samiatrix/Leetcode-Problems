@@ -11,17 +11,18 @@
  */
 class Solution {
 public:
-    vector<TreeNode*> tree(int l, int r){
-        if(l>r) return{NULL};
+    vector<TreeNode*> gen(int l, int r){
+        if(l>r) return {NULL};
         vector<TreeNode*> ans;
         for(int i=l;i<=r;i++){
-            vector<TreeNode*> left = tree(l, i-1);
-            vector<TreeNode*> right = tree(i+1, r);
-            for(int j=0;j<left.size();j++){
-                for(int k=0;k<right.size();k++){
+            vector<TreeNode*> le = gen(l, i-1);
+            vector<TreeNode*> ri = gen(i+1, r);
+            
+            for(int j=0;j<le.size();j++){
+                for(int k = 0;k<ri.size();k++){
                     TreeNode* curr = new TreeNode(i);
-                    curr->left = left[j];
-                    curr->right = right[k];
+                    curr->left = le[j];
+                    curr->right = ri[k];
                     ans.push_back(curr);
                 }
             }
@@ -30,6 +31,6 @@ public:
     }
     vector<TreeNode*> generateTrees(int n) {
         if(n == 0)  return {};
-        return tree(1, n);
+        return gen(1, n);
     }
 };
