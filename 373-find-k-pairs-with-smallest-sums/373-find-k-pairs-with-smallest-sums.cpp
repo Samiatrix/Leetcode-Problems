@@ -1,14 +1,14 @@
 struct compare{
     bool operator()(vector<int>& a, vector<int>& b){
-        return (a[0] + a[1]) > (b[0] + b[1]);
+        return (a[0]+a[1]) > (b[0]+b[1]);
     }
 };
 class Solution {
 public:
     vector<vector<int>> kSmallestPairs(vector<int>& nums1, vector<int>& nums2, int k) {
-        long n = nums1.size(), m = nums2.size();
         priority_queue<vector<int>, vector<vector<int>>, compare> pq;
-        for(int i=0;i<nums1.size() && i<k;i++){
+        int n = nums1.size(), m = nums2.size();
+        for(int i=0;i<n && i<k;i++){
             pq.push({nums1[i], nums2[0], 0});
         }
         vector<vector<int>> ans;
@@ -20,6 +20,5 @@ public:
             pq.push({curr[0], nums2[curr[2]+1], curr[2]+1});
         }
         return ans;
-        
     }
 };
