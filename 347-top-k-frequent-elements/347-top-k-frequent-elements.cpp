@@ -1,20 +1,23 @@
 struct compare{
-    bool operator()(pair<int, int>& a, pair<int, int>& b){
+    bool operator()(pair<int, int> a, pair<int, int> b){
         return a.second < b.second;
     }
 };
 class Solution {
 public:
     vector<int> topKFrequent(vector<int>& nums, int k) {
+        unordered_map<int, int> mp;
+        for(auto i:nums)    mp[i]++;
+        
         priority_queue<pair<int, int>, vector<pair<int, int>>, compare> pq;
-        unordered_map<int, int> freq;
-        for(auto i:nums)    freq[i]++;
-        for(auto i:freq)    pq.push({i.first, i.second});
+        for(auto i:mp)  pq.push({i.first, i.second});
         
         vector<int> ans;
-        while(k--){
-            ans.push_back(pq.top().first);
+        
+        while(!pq.empty() && k--){
+            pair<int, int> curr = pq.top();
             pq.pop();
+            ans.push_back(curr.first);
         }
         return ans;
     }
