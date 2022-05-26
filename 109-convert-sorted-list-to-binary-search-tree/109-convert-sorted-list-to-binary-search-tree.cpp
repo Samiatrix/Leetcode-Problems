@@ -23,11 +23,11 @@ class Solution {
 public:
     TreeNode* bst(ListNode* head, ListNode* tail){
         if(head == tail)    return NULL;
-        ListNode* slow = head;
         ListNode* fast = head;
+        ListNode* slow = head;
         while(fast != tail && fast->next != tail){
-            slow = slow->next;
             fast = fast->next->next;
+            slow = slow->next;
         }
         TreeNode* root = new TreeNode(slow->val);
         root->left = bst(head, slow);
@@ -35,7 +35,7 @@ public:
         return root;
     }
     TreeNode* sortedListToBST(ListNode* head) {
-        if(head == NULL)    return NULL;
+        if(!head)   return NULL;
         return bst(head, NULL);
     }
 };
