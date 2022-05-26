@@ -1,6 +1,12 @@
 class Solution {
 public:
     string frequencySort(string s) {
+        vector<int> count(256, 0);
+        for(auto i:s)   count[i]++;
+        sort(s.begin(), s.end(), [&](char a, char b){
+            return count[a] > count[b] || (count[a] == count[b] && a<b);
+        });
+        return s;
         map<char, int> mp;
         for(auto i:s)   mp[i]++;
         
