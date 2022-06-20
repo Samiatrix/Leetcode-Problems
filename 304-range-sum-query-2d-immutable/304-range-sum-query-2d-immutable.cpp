@@ -14,10 +14,10 @@ public:
     }
     
     int sumRegion(int row1, int col1, int row2, int col2) {
-        col1++, col2++;
+        col2++;
         int sum = 0;
         for(int i=row1;i<=row2;i++){
-            sum += pre[i][col2]-pre[i][col1-1];
+            sum += pre[i][col2]-pre[i][col1];
         }
         return sum;
     }
