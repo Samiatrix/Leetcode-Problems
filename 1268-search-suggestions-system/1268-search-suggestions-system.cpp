@@ -1,24 +1,17 @@
 class Solution {
 public:
     vector<vector<string>> suggestedProducts(vector<string>& products, string searchWord) {
-        unordered_map<string, set<string>> mp;
-        for(auto s: products){
-            string curr = "";
-            for(auto i:s){
-                curr+=i;
-                mp[curr].insert(s);
-            }
-        }
+        sort(products.begin(), products.end());
         string curr = "";
         vector<vector<string>> ans;
-        for(auto i:searchWord){
+        for(int i=0;i<searchWord.size();i++){
+            curr += searchWord[i];
             vector<string> t;
-            curr+=i;
-            int k = 3;
-            for(auto j:mp[curr]){
-                t.push_back(j);
-                k--;
-                if(k == 0)  break;
+            auto it = lower_bound(products.begin(), products.end(), curr);
+            for(int j=0 ; j<3 && it+j != products.end() ; j++){
+                string s = *(it+j);
+                if(s.find(curr))    break;
+                t.push_back(s);
             }
             ans.push_back(t);
         }
