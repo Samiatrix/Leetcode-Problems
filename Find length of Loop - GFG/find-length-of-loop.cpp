@@ -86,10 +86,10 @@ int countNodesinLoop(struct Node *head)
             break;
         }
     }
-    if(!loop)    return 0;
+    if(!loop)   return 0;
     int count = 1;
     slow = slow->next;
-    while(slow!=fast){
+    while(slow != fast){
         slow = slow->next;
         count++;
     }
