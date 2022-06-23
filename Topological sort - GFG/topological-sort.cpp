@@ -10,9 +10,7 @@ class Solution
 	    if(vis[ind])   return ;
 	    vis[ind] = true;
 	    for(auto i:adj[ind]){
-	       // if(!vis[i]){
-	            dfs(adj, i, vis, s);
-	       // }
+            dfs(adj, i, vis, s);
 	    }
 	    s.push(ind);
 	}
@@ -20,22 +18,42 @@ class Solution
 	vector<int> topoSort(int V, vector<int> adj[]) 
 	{
 	    unordered_map<int, vector<int>> ad;
+	    vector<int> indegree(V, 0);
 	    for(int i = 0;i<V;i++){
 	        for(auto j:adj[i]){
-	            ad[i].push_back(j);
+                ad[i].push_back(j);
+                indegree[j]++;
 	        }
 	    }
-	    vector<bool> vis(V, false);
-	    stack<int> s;
-	    for(int i=0;i<V;i++){
-    	    dfs(ad, i, vis, s);
-	    }
+	   // vector<bool> vis(V, false);
+	   // stack<int> s;
+	   // for(int i=0;i<V;i++){
+    // 	    dfs(ad, i, vis, s);
+	   // }
 	    vector<int> ans;
-	    while(!s.empty()){
-	        ans.push_back(s.top());
-	        s.pop();
-	    }
-	    return ans;
+	   // while(!s.empty()){
+	   //     ans.push_back(s.top());
+	   //     s.pop();
+	   // }
+	   // return ans;
+	   queue<int> q;
+	   for(int i=0;i<V;i++){
+	       if(indegree[i] == 0){
+	           q.push(i);
+	       }
+	   }
+	   while(!q.empty()){
+	       auto curr = q.front();
+	       q.pop();
+	       ans.push_back(curr);
+	       for(auto i:ad[curr]){
+	           indegree[i]--;
+	           if(indegree[i] == 0){
+	               q.push(i);
+	           }
+	       }
+	   }
+	   return ans;
 	}
 };
 
