@@ -10,9 +10,9 @@ class Solution
 	    if(vis[ind])   return ;
 	    vis[ind] = true;
 	    for(auto i:adj[ind]){
-	        if(!vis[i]){
+	       // if(!vis[i]){
 	            dfs(adj, i, vis, s);
-	        }
+	       // }
 	    }
 	    s.push(ind);
 	}
@@ -25,9 +25,6 @@ class Solution
 	            ad[i].push_back(j);
 	        }
 	    }
-	   // for(auto i:adj){
-	   //     ad[i[0]].push_back(i[1]);
-	   // }
 	    vector<bool> vis(V, false);
 	    stack<int> s;
 	    for(int i=0;i<V;i++){
