@@ -1,55 +1,31 @@
 class Solution {
 public:
-    // bool cycle(int curr, vector<bool>& vis, vector<bool>& dfs, unordered_map<int, vector<int>>& adj){
-    //     vis[curr] = true;
-    //     dfs[curr] = true;
-    //     for(auto i:adj[curr]){
-    //         if(!vis[i]){
-    //             if(cycle(i, vis, dfs, adj)) return true;
-    //         }
-    //         else if(dfs[i]) return true;
-    //     }
-    //     dfs[curr] = false;
-    //     return false;
-    // }
-    void cycle(int curr, vector<bool>& vis, unordered_map<int, vector<int>>& adj, stack<int>& s){
-        vis[curr] = true;
-        for(auto i:adj[curr]){
+    bool cycle(int ind, vector<bool>& vis, vector<bool>& dfsVis, unordered_map<int, vector<int>>& adj, stack<int>& s){
+        vis[ind] = true;
+        dfsVis[ind] = true;
+        for(auto i:adj[ind]){
             if(!vis[i]){
-                cycle(i, vis, adj, s);
+                if(cycle(i, vis, dfsVis, adj, s))   return true;
             }
+            else if(dfsVis[i])  return true;
         }
-        s.push(curr);
+        s.push(ind);
+        dfsVis[ind] = false;
+        return false;
     }
     bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
         unordered_map<int, vector<int>> adj;
         for(auto i:prerequisites){
             adj[i[1]].push_back(i[0]);
         }
-        
-        vector<int> indegree(numCourses, 0);
-        for(int i=0;i<numCourses;i++){
-            for(auto j:adj[i]){
-                indegree[j]++;
-            }
-        }
-        queue<int> q;
-        for(int i=0;i<indegree.size();i++){
-            if(indegree[i] == 0){
-                q.push(i);
-            }
-        }
-        int count = 0;
+        stack<int> s;
         vector<bool> vis(numCourses, false);
-        while(!q.empty()){
-            auto curr = q.front();
-            q.pop();
-            count++;
-            for(auto i:adj[curr]){
-                indegree[i]--;
-                if(indegree[i] == 0)    q.push(i);
+        vector<bool> dfsVis(numCourses, false);
+        for(int i=0;i<numCourses;i++){
+            if(!vis[i]){
+                if(cycle(i, vis, dfsVis, adj, s))   return false;
             }
         }
-        return numCourses == count;
+        return s.size() == numCourses;
     }
 };
