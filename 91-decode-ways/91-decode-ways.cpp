@@ -1,15 +1,17 @@
 class Solution {
 public:
-    int dec(string s, int i, vector<int>& dp){
-        if(i == s.size())   return 1;
-        if(s[i] == '0') return 0;
-        if(dp[i]!=-1)   return dp[i];
-        int ans = dec(s, i+1, dp);
-        if((i+1)<s.size() && (s[i] == '1' || (s[i] == '2' && s[i+1] <= '6'))) ans+=dec(s, i+2, dp);
-        return dp[i] = ans;
+    int decode(string s, int ind, vector<int>& dp){
+        if(ind>=s.size())   return 1;
+        if(s[ind] == '0')   return 0;
+        if(dp[ind]!=-1) return dp[ind];
+        int ans = decode(s, ind+1, dp);
+        if(ind+1 < s.size() && (s[ind] == '1' || s[ind] == '2' && s[ind+1] <= '6')){
+            ans += decode(s, ind+2, dp);
+        }
+        return dp[ind] = ans;
     }
     int numDecodings(string s) {
-        vector<int> dp(s.size()+1, -1);
-        return dec(s, 0, dp);
+        vector<int> dp(s.size(), -1);
+        return decode(s, 0, dp);
     }
 };
